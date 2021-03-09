@@ -33,3 +33,9 @@
     color: rgb(4, 31, 71);
 }
 
+.time{
+    position: absolute;
+    left: 10px;
+    bottom: 10px;
+}
+

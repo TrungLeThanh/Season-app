@@ -20,7 +20,8 @@ class App extends React.Component{
     //Tự động viết thành contructor function
     state = {
         lat: null, 
-        errorMessage: ''
+        errorMessage: '',
+        time: ''
     };
 
     /**
@@ -32,20 +33,36 @@ class App extends React.Component{
             position => this.setState({lat: position.coords.latitude}), 
             err => this.setState({errorMessage: err.message})
         );
+        
+        //Sau 1s sẽ cập nhật
+        setInterval( () => {
+            this.setState({time: new Date().toLocaleTimeString()})
+        },1000)
     }
 
-    render () {
+    renderContent(){
         if(this.state.errorMessage && !this.state.lat) {
             return <div>Error: {this.state.errorMessage}</div>
         }
 
         if(!this.state.errorMessage && this.state.lat){
             return (
-                <SeasonDisplay lat={this.state.lat} />
+                <SeasonDisplay 
+                    lat={this.state.lat}
+                    time={this.state.time}
+                />
             );
         }
 
-        return <div><Spinner /></div>
+        return <Spinner message="Please accept location requests!" />
+    }
+
+    render () {
+        return (
+            <div className="border red">
+                {this.renderContent()}
+            </div>
+        );
     }
 };
 
