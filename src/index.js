@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import SeasonDisplay from './SeasonDisplay';
 import Spinner from './Spinner';
+import Error from './Error'
 
 class App extends React.Component{
 
@@ -42,7 +43,7 @@ class App extends React.Component{
 
     renderContent(){
         if(this.state.errorMessage && !this.state.lat) {
-            return <div>Error: {this.state.errorMessage}</div>
+            return <Error error={this.state.errorMessage} />
         }
 
         if(!this.state.errorMessage && this.state.lat){
